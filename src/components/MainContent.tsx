@@ -1,6 +1,6 @@
 export default function MainContent() {
 	return (
-		<main className="bg-black text-white h-48 flex items-center pl-8 text-justify">
+		<main className="bg-black text-white min-h-64 flex items-center pl-8 text-justify">
 			<div className="w-3/5">
 				This website provides information on space launches and missions, making
 				it a must-have for spaceflight enthusiasts. Here, you will find blogs,

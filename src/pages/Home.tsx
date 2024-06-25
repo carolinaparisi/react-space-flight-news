@@ -5,7 +5,7 @@ import MainContent from "../components/MainContent";
 
 export default function Home() {
 	return (
-		<div className="h-full">
+		<div className=" bg-black min-h-screen">
 			<Header />
 			<Banner />
 			<MainContent />

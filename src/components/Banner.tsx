@@ -1,5 +1,13 @@
 import banner from "../assets/space-ship-banner.png";
 
 export default function Banner() {
-	return <img src={banner} className="h-full" />;
+	return (
+		<div className="relative">
+			<img src={banner} className="opacity-20" />
+			<h1 className="text-white absolute bottom-28 left-8 text-5xl font-bold">
+				<span className="text-blue">React </span>
+				Space News API
+			</h1>
+		</div>
+	);
 }
