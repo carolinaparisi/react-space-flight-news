@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Blog } from "../pages/Blogs";
 
 interface MainContentProps {
@@ -6,19 +7,25 @@ interface MainContentProps {
 
 export default function MainContent({ blogs }: MainContentProps) {
 	return (
-		<main className="bg-black text-white flex p-8 text-justify">
+		<main className="bg-black text-white flex pt-8 pl-8 pr-8 text-justify">
 			{blogs ? (
 				<div className=" w-full">
 					{blogs.map((blog) => {
 						return (
-							<div className="border-b border-white" key={blog.id}>
-								<div>{blog.title}</div>
-								<div>{blog.summary}</div>
-								<div>
-									Published by {blog.news_site},{" "}
-									{blog.published_at.split("T")[0]}
+							<Link key={blog.id} to={blog.url} target="_blank">
+								<div
+									className="border-b border-white mb-4 flex flex-col gap-2"
+									key={blog.id}>
+									<div className="font-bold text-xl text-blue">
+										{blog.title}
+									</div>
+									<div>{blog.summary}</div>
+									<div className="pb-4 text-gray">
+										Published by {blog.news_site},{" "}
+										{blog.published_at.split("T")[0]}
+									</div>
 								</div>
-							</div>
+							</Link>
 						);
 					})}
 				</div>
