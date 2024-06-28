@@ -6,9 +6,9 @@ interface MainContentProps {
 
 export default function MainContent({ blogs }: MainContentProps) {
 	return (
-		<main className="bg-black text-white min-h-64 flex items-center p-8 text-justify">
+		<main className="bg-black text-white flex p-8 text-justify">
 			{blogs ? (
-				<div className="border border-blue w-full">
+				<div className=" w-full">
 					{blogs.map((blog) => {
 						return (
 							<div className="border-b border-white" key={blog.id}>
