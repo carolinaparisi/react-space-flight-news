@@ -21,6 +21,7 @@ export interface Blog {
 
 export default function Blogs() {
 	const [blogs, setBlogs] = useState<Blog[]>([]);
+	const [count, setCount] = useState<number>(0);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -29,6 +30,7 @@ export default function Blogs() {
 			);
 			const jsonData: ApiResponse = await response.json();
 			setBlogs(jsonData.results);
+			setCount(jsonData.count);
 			console.log(jsonData);
 		};
 		fetchData();
@@ -44,7 +46,7 @@ export default function Blogs() {
 				summary={blogs[0]?.summary}
 				url={blogs[0]?.url}
 			/>
-			<MainContent blogs={blogs} />
+			<MainContent blogs={blogs} count={count} />
 			<Footer />
 		</div>
 	);
