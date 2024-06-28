@@ -11,7 +11,8 @@ export default function MainContent({ blogs, count }: MainContentProps) {
 
 	return (
 		<main className="bg-black text-white flex pt-8 pl-8 pr-8 text-justify">
-			{blogs ? (
+			{/* blogs.length verifies if there's is already some blog to show the input together with the rest of the elements */}
+			{blogs && blogs.length > 0 ? (
 				<div className=" w-full">
 					<div className="flex flex-col w-1/5 gap-2">
 						<input
