@@ -14,13 +14,13 @@ export default function MainContent({ blogs }: MainContentProps) {
 						return (
 							<Link key={blog.id} to={blog.url} target="_blank">
 								<div
-									className="border-b border-white mb-4 flex flex-col gap-2"
+									className="border-b border-white mb-6 flex flex-col gap-2"
 									key={blog.id}>
 									<div className="font-bold text-xl text-blue">
 										{blog.title}
 									</div>
 									<div>{blog.summary}</div>
-									<div className="pb-4 text-gray">
+									<div className="pb-6 text-gray">
 										Published by {blog.news_site},{" "}
 										{blog.published_at.split("T")[0]}
 									</div>
@@ -30,7 +30,7 @@ export default function MainContent({ blogs }: MainContentProps) {
 					})}
 				</div>
 			) : (
-				<div className="w-3/5">
+				<div className="w-3/5 mb-8">
 					This website provides information on space launches and missions,
 					making it a must-have for spaceflight enthusiasts. Here, you will find
 					blogs, articles, and even reports on these events. The goal is to
