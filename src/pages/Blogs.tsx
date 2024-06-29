@@ -4,8 +4,11 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import MainContent from "../components/MainContent";
 
+const apiUrl = "https://api.spaceflightnewsapi.net/v4/blogs/";
+
 interface ApiResponse {
 	count: number;
+	next: string;
 	results: Blog[];
 }
 
@@ -22,19 +25,29 @@ export interface Blog {
 export default function Blogs() {
 	const [blogs, setBlogs] = useState<Blog[]>([]);
 	const [count, setCount] = useState<number>(0);
+	const [next, setNext] = useState<string>("");
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const response = await fetch(
-				"https://api.spaceflightnewsapi.net/v4/blogs/"
-			);
+			const response = await fetch(apiUrl);
 			const jsonData: ApiResponse = await response.json();
 			setBlogs(jsonData.results);
 			setCount(jsonData.count);
-			console.log(jsonData);
+			setNext(jsonData.next);
 		};
 		fetchData();
 	}, []);
+
+	const pagination = () => {
+		const fetchData = async () => {
+			console.log(next);
+			const response = await fetch(next);
+			const jsonData: ApiResponse = await response.json();
+			setBlogs(jsonData.results);
+			setNext(jsonData.next);
+		};
+		fetchData();
+	};
 
 	return (
 		<div className=" bg-black min-h-screen">
@@ -46,7 +59,7 @@ export default function Blogs() {
 				summary={blogs[0]?.summary}
 				url={blogs[0]?.url}
 			/>
-			<MainContent blogs={blogs} count={count} />
+			<MainContent blogs={blogs} count={count} pagination={pagination} />
 			<Footer />
 		</div>
 	);

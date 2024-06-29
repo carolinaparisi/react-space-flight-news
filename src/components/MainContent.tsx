@@ -4,9 +4,14 @@ import { Blog } from "../pages/Blogs";
 interface MainContentProps {
 	blogs?: Blog[];
 	count?: number;
+	pagination?: () => void;
 }
 
-export default function MainContent({ blogs, count }: MainContentProps) {
+export default function MainContent({
+	blogs,
+	count,
+	pagination,
+}: MainContentProps) {
 	const location = useLocation();
 
 	return (
@@ -24,7 +29,7 @@ export default function MainContent({ blogs, count }: MainContentProps) {
 							Found {count} {location.pathname.split("/")[1]}.
 						</div>
 					</div>
-					{blogs.map((blog) => {
+					{blogs.slice(1).map((blog) => {
 						return (
 							<Link key={blog.id} to={blog.url} target="_blank">
 								<div
@@ -42,6 +47,14 @@ export default function MainContent({ blogs, count }: MainContentProps) {
 							</Link>
 						);
 					})}
+					<button
+						onClick={() => {
+							if (pagination) {
+								pagination();
+							}
+						}}>
+						PAGINATION
+					</button>
 				</div>
 			) : (
 				<div className="w-3/5 mb-8">
