@@ -1,15 +1,20 @@
 import { Link, useLocation } from "react-router-dom";
 import { Blog } from "../pages/Blogs";
+import Pagination from "./Pagination";
 
 interface MainContentProps {
 	blogs?: Blog[];
 	count?: number;
-	pagination?: () => void;
+	next?: string;
+	previous?: string;
+	pagination?: (nextOrPrevious: string) => void;
 }
 
 export default function MainContent({
 	blogs,
 	count,
+	next,
+	previous,
 	pagination,
 }: MainContentProps) {
 	const location = useLocation();
@@ -47,14 +52,7 @@ export default function MainContent({
 							</Link>
 						);
 					})}
-					<button
-						onClick={() => {
-							if (pagination) {
-								pagination();
-							}
-						}}>
-						PAGINATION
-					</button>
+					<Pagination next={next} previous={previous} pagination={pagination} />
 				</div>
 			) : (
 				<div className="w-3/5 mb-8">

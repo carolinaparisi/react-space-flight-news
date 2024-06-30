@@ -9,6 +9,7 @@ const apiUrl = "https://api.spaceflightnewsapi.net/v4/blogs/";
 interface ApiResponse {
 	count: number;
 	next: string;
+	previous: string;
 	results: Blog[];
 }
 
@@ -26,6 +27,7 @@ export default function Blogs() {
 	const [blogs, setBlogs] = useState<Blog[]>([]);
 	const [count, setCount] = useState<number>(0);
 	const [next, setNext] = useState<string>("");
+	const [previous, setPrevious] = useState<string>("");
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -34,17 +36,18 @@ export default function Blogs() {
 			setBlogs(jsonData.results);
 			setCount(jsonData.count);
 			setNext(jsonData.next);
+			setPrevious(jsonData.previous);
 		};
 		fetchData();
 	}, []);
 
-	const pagination = () => {
+	const pagination = (nextOrPrevious: string) => {
 		const fetchData = async () => {
-			console.log(next);
-			const response = await fetch(next);
+			const response = await fetch(nextOrPrevious);
 			const jsonData: ApiResponse = await response.json();
 			setBlogs(jsonData.results);
 			setNext(jsonData.next);
+			setPrevious(jsonData.previous);
 		};
 		fetchData();
 	};
@@ -59,7 +62,13 @@ export default function Blogs() {
 				summary={blogs[0]?.summary}
 				url={blogs[0]?.url}
 			/>
-			<MainContent blogs={blogs} count={count} pagination={pagination} />
+			<MainContent
+				blogs={blogs}
+				count={count}
+				next={next}
+				previous={previous}
+				pagination={pagination}
+			/>
 			<Footer />
 		</div>
 	);
