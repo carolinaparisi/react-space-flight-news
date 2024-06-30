@@ -17,17 +17,28 @@ export default function Pagination({
 	const offset = initialOffset ? parseInt(initialOffset) : 1;
 
 	const limitPerPage = 10;
-	let pages;
-	if (count) {
-		pages = Math.ceil(count / limitPerPage);
-	}
+	const pages = count && Math.ceil(count / limitPerPage);
 
 	const currentPage = next === null ? 127 : offset / limitPerPage;
+
+	const verifyFirstPage = (page: number) => {
+		if (page === 1) {
+			return "flex mt-4 bg-blue w-fit p-2 rounded-md gap-2 opacity-60";
+		}
+		return "flex mt-4 bg-blue w-fit p-2 rounded-md gap-2";
+	};
+
+	const verifyLastPage = (page: number) => {
+		if (page === pages) {
+			return "flex mt-4 bg-blue w-fit p-2 rounded-md gap-2 opacity-60";
+		}
+		return "flex mt-4 bg-blue w-fit p-2 rounded-md gap-2";
+	};
 
 	return (
 		<div className="flex gap-4 pb-8">
 			<button
-				className="flex mt-4 bg-blue w-fit p-2 rounded-md gap-2"
+				className={verifyFirstPage(currentPage)}
 				onClick={() => {
 					{
 						if (pagination && previous) {
@@ -41,7 +52,7 @@ export default function Pagination({
 				{currentPage} of {pages}
 			</p>
 			<button
-				className="flex mt-4 bg-blue w-fit p-2 rounded-md gap-2"
+				className={verifyLastPage(currentPage)}
 				onClick={() => {
 					{
 						if (pagination && next) {
