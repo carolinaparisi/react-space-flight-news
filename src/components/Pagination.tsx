@@ -1,10 +1,10 @@
 import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
 
 interface PaginationProps {
-	count?: number;
-	previous?: string;
-	next?: string;
-	pagination?: (nextOrPrevious: string) => void;
+	count: number;
+	previous: string | null;
+	next: string | null;
+	pagination: (nextOrPrevious: string) => void;
 }
 
 export default function Pagination({

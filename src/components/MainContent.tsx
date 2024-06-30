@@ -5,8 +5,8 @@ import Pagination from "./Pagination";
 interface MainContentProps {
 	blogs?: Blog[];
 	count?: number;
-	next?: string;
-	previous?: string;
+	next?: string | null;
+	previous?: string | null;
 	pagination?: (nextOrPrevious: string) => void;
 }
 
@@ -22,7 +22,7 @@ export default function MainContent({
 	return (
 		<main className="bg-black text-white flex pt-8 pl-8 pr-8 text-justify">
 			{/* blogs.length verifies if there's is already some blog to show the input together with the rest of the elements */}
-			{blogs && blogs.length > 0 ? (
+			{blogs && count && pagination && blogs.length > 0 ? (
 				<div className=" w-full">
 					<div className="flex flex-col w-1/5 gap-2">
 						<input
@@ -54,8 +54,8 @@ export default function MainContent({
 					})}
 					<Pagination
 						count={count}
-						next={next}
-						previous={previous}
+						next={next || null}
+						previous={previous || null}
 						pagination={pagination}
 					/>
 				</div>

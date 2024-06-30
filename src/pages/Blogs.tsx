@@ -41,15 +41,12 @@ export default function Blogs() {
 		fetchData();
 	}, []);
 
-	const pagination = (nextOrPrevious: string) => {
-		const fetchData = async () => {
-			const response = await fetch(nextOrPrevious);
-			const jsonData: ApiResponse = await response.json();
-			setBlogs(jsonData.results);
-			setNext(jsonData.next);
-			setPrevious(jsonData.previous);
-		};
-		fetchData();
+	const pagination = async (nextOrPrevious: string) => {
+		const response = await fetch(nextOrPrevious);
+		const jsonData: ApiResponse = await response.json();
+		setBlogs(jsonData.results);
+		setNext(jsonData.next);
+		setPrevious(jsonData.previous);
 	};
 
 	return (
