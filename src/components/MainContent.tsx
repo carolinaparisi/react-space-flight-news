@@ -52,7 +52,12 @@ export default function MainContent({
 							</Link>
 						);
 					})}
-					<Pagination next={next} previous={previous} pagination={pagination} />
+					<Pagination
+						count={count}
+						next={next}
+						previous={previous}
+						pagination={pagination}
+					/>
 				</div>
 			) : (
 				<div className="w-3/5 mb-8">
