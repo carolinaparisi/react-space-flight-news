@@ -69,7 +69,7 @@ export default function Blogs() {
 				url={blogs[0]?.url}
 			/>
 			<MainContent
-				blogs={blogs}
+				mainData={blogs}
 				count={count}
 				next={next}
 				previous={previous}

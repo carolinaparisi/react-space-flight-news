@@ -1,10 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
 import { Blog } from "../pages/Blogs";
+import { Article } from "../pages/Articles";
+import { Report } from "../pages/Reports";
 import Pagination from "./Pagination";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 
 interface MainContentProps {
-	blogs?: Blog[];
+	mainData?: Blog[] | Article[] | Report[];
 	count?: number;
 	next?: string | null;
 	previous?: string | null;
@@ -13,7 +15,7 @@ interface MainContentProps {
 }
 
 export default function MainContent({
-	blogs,
+	mainData,
 	count,
 	next,
 	previous,
@@ -27,7 +29,7 @@ export default function MainContent({
 	return (
 		<main className="bg-black text-white flex pt-8 pl-8 pr-8 text-justify">
 			{/* blogs.length verifies if there's is already some blog to show the input together with the rest of the elements */}
-			{blogs && count && pagination && filter && blogs.length > 0 ? (
+			{mainData && count && pagination && filter && mainData.length > 0 ? (
 				<div className=" w-full">
 					<div className="flex flex-col w-1/5 gap-2">
 						<input
@@ -49,19 +51,19 @@ export default function MainContent({
 							Found {count} {location.pathname.split("/")[1]}.
 						</div>
 					</div>
-					{blogs.slice(1).map((blog) => {
+					{mainData.slice(1).map((data) => {
 						return (
-							<Link key={blog.id} to={blog.url} target="_blank">
+							<Link key={data.id} to={data.url} target="_blank">
 								<div
 									className="border-b border-white mb-6 flex flex-col gap-2"
-									key={blog.id}>
+									key={data.id}>
 									<div className="font-bold text-xl text-blue">
-										{blog.title}
+										{data.title}
 									</div>
-									<div>{blog.summary}</div>
+									<div className="line-clamp-2">{data.summary}</div>
 									<div className="pb-6 text-gray">
-										Published by {blog.news_site},{" "}
-										{blog.published_at.split("T")[0]}
+										Published by {data.news_site},{" "}
+										{data.published_at.split("T")[0]}
 									</div>
 								</div>
 							</Link>
