@@ -49,6 +49,15 @@ export default function Blogs() {
 		setPrevious(jsonData.previous);
 	};
 
+	const filter = async (input: string) => {
+		const response = await fetch(`${apiUrl}?search=${input}`);
+		const jsonData: ApiResponse = await response.json();
+		setBlogs(jsonData.results);
+		setNext(jsonData.next);
+		setPrevious(jsonData.previous);
+		setCount(jsonData.count);
+	};
+
 	return (
 		<div className=" bg-black min-h-screen">
 			<Header />
@@ -65,6 +74,7 @@ export default function Blogs() {
 				next={next}
 				previous={previous}
 				pagination={pagination}
+				filter={filter}
 			/>
 			<Footer />
 		</div>

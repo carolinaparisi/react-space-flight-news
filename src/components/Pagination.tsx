@@ -19,7 +19,7 @@ export default function Pagination({
 	const limitPerPage = 10;
 	const pages = count && Math.ceil(count / limitPerPage);
 
-	const currentPage = next === null ? 127 : offset / limitPerPage;
+	const currentPage = next === null ? pages : offset / limitPerPage;
 
 	const verifyFirstPage = (page: number) => {
 		if (page === 1) {

@@ -9,6 +9,7 @@ interface MainContentProps {
 	next?: string | null;
 	previous?: string | null;
 	pagination?: (nextOrPrevious: string) => void;
+	filter?: (input: string) => void;
 }
 
 export default function MainContent({
@@ -17,19 +18,16 @@ export default function MainContent({
 	next,
 	previous,
 	pagination,
+	filter,
 }: MainContentProps) {
 	const location = useLocation();
 
 	const [searchInput, setSearchInput] = useState("");
 
-	function handleSearchInput() {
-		console.log(searchInput);
-	}
-
 	return (
 		<main className="bg-black text-white flex pt-8 pl-8 pr-8 text-justify">
 			{/* blogs.length verifies if there's is already some blog to show the input together with the rest of the elements */}
-			{blogs && count && pagination && blogs.length > 0 ? (
+			{blogs && count && pagination && filter && blogs.length > 0 ? (
 				<div className=" w-full">
 					<div className="flex flex-col w-1/5 gap-2">
 						<input
@@ -42,7 +40,7 @@ export default function MainContent({
 							}}
 							onKeyDown={(event) => {
 								if (event.key === "Enter") {
-									handleSearchInput();
+									filter(searchInput);
 									setSearchInput("");
 								}
 							}}
