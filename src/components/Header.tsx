@@ -21,7 +21,6 @@ const routes = [
 
 export default function Header() {
 	const location = useLocation();
-	console.log(location.pathname);
 
 	const handleSelected = (path: string) => {
 		if (location.pathname === path) {

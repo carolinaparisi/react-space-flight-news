@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { Blog } from "../pages/Blogs";
 import Pagination from "./Pagination";
+import { ChangeEvent, useState } from "react";
 
 interface MainContentProps {
 	blogs?: Blog[];
@@ -19,6 +20,12 @@ export default function MainContent({
 }: MainContentProps) {
 	const location = useLocation();
 
+	const [searchInput, setSearchInput] = useState("");
+
+	function handleSearchInput() {
+		console.log(searchInput);
+	}
+
 	return (
 		<main className="bg-black text-white flex pt-8 pl-8 pr-8 text-justify">
 			{/* blogs.length verifies if there's is already some blog to show the input together with the rest of the elements */}
@@ -29,6 +36,16 @@ export default function MainContent({
 							type="text"
 							className="rounded-md h-9 text-dark_gray p-2 font-light italic"
 							placeholder="Search..."
+							value={searchInput}
+							onChange={(event) => {
+								setSearchInput(event.target.value);
+							}}
+							onKeyDown={(event) => {
+								if (event.key === "Enter") {
+									handleSearchInput();
+									setSearchInput("");
+								}
+							}}
 						/>
 						<div className="mb-6 text-gray text-xs">
 							Found {count} {location.pathname.split("/")[1]}.
