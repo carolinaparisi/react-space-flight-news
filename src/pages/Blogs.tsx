@@ -74,9 +74,14 @@ export default function Blogs() {
 			{/*This ? used is a Safe Navigation operator, also called as Optional chaining  */}
 			<Banner
 				imageUrl={blogs[0]?.image_url}
-				title={isLoading === true ? "Loading..." : blogs[0]?.title || "Sorry!"}
-				summary={blogs[0]?.summary}
+				title={isLoading ? "Loading..." : blogs[0]?.title || "Sorry!"}
+				summary={
+					isLoading
+						? ""
+						: blogs[0]?.summary || "We couldn't find anything with this word..."
+				}
 				url={blogs[0]?.url}
+				isLoading={isLoading}
 			/>
 			<MainContent
 				mainData={blogs}

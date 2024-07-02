@@ -77,8 +77,14 @@ export default function Reports() {
 				title={
 					isLoading === true ? "Loading..." : reports[0]?.title || "Sorry!"
 				}
-				summary={reports[0]?.summary}
+				summary={
+					isLoading
+						? ""
+						: reports[0]?.summary ||
+						  "We couldn't find anything with this word..."
+				}
 				url={reports[0]?.url}
+				isLoading={isLoading}
 			/>
 			<MainContent
 				mainData={reports}

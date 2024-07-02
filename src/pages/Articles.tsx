@@ -77,8 +77,14 @@ export default function Articles() {
 				title={
 					isLoading === true ? "Loading..." : articles[0]?.title || "Sorry!"
 				}
-				summary={articles[0]?.summary}
+				summary={
+					isLoading
+						? ""
+						: articles[0]?.summary ||
+						  "We couldn't find anything with this word..."
+				}
 				url={articles[0]?.url}
+				isLoading={isLoading}
 			/>
 			<MainContent
 				mainData={articles}

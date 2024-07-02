@@ -7,17 +7,25 @@ interface BannerProps {
 	title?: string;
 	summary?: string;
 	url?: string;
+	isLoading: boolean;
 }
 
-export default function Banner({ imageUrl, title, summary, url }: BannerProps) {
+export default function Banner({
+	imageUrl,
+	title,
+	summary,
+	url,
+	isLoading,
+}: BannerProps) {
 	return (
 		<div className="relative">
 			<img
-				src={imageUrl ? imageUrl : banner}
+				src={imageUrl && !isLoading ? imageUrl : banner}
 				className="opacity-20 w-full h-96 object-cover"
 			/>
 			<div className=" text-white absolute inset-y-0 left-0 px-8 h-full flex flex-col justify-center w-full gap-3">
-				<h1 className=" text-5xl font-bold">
+				<h1
+					className={`${title === "Sorry!" && "text-blue"} text-5xl font-bold`}>
 					{title ? (
 						title
 					) : (
@@ -34,7 +42,7 @@ export default function Banner({ imageUrl, title, summary, url }: BannerProps) {
 				) : (
 					""
 				)}
-				{url ? (
+				{url && !isLoading ? (
 					<Link
 						className="flex mt-4 bg-blue w-fit p-2 rounded-md gap-2"
 						target="_blank"
