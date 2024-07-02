@@ -28,34 +28,44 @@ export default function Reports() {
 	const [count, setCount] = useState<number>(0);
 	const [next, setNext] = useState<string>("");
 	const [previous, setPrevious] = useState<string>("");
+	const [isLoading, setLoading] = useState<boolean>(false);
 
 	useEffect(() => {
 		const fetchData = async () => {
+			setLoading(true);
 			const response = await fetch(apiUrl);
 			const jsonData: ApiResponse = await response.json();
+
 			setReports(jsonData.results);
 			setCount(jsonData.count);
 			setNext(jsonData.next);
 			setPrevious(jsonData.previous);
+			setLoading(false);
 		};
 		fetchData();
 	}, []);
 
 	const pagination = async (nextOrPrevious: string) => {
+		setLoading(true);
 		const response = await fetch(nextOrPrevious);
 		const jsonData: ApiResponse = await response.json();
+
 		setReports(jsonData.results);
 		setNext(jsonData.next);
 		setPrevious(jsonData.previous);
+		setLoading(false);
 	};
 
 	const filter = async (input: string) => {
+		setLoading(true);
 		const response = await fetch(`${apiUrl}?search=${input}`);
 		const jsonData: ApiResponse = await response.json();
+
 		setReports(jsonData.results);
 		setNext(jsonData.next);
 		setPrevious(jsonData.previous);
 		setCount(jsonData.count);
+		setLoading(false);
 	};
 
 	return (
@@ -64,7 +74,9 @@ export default function Reports() {
 			{/*This ? used is a Safe Navigation operator, also called as Optional chaining  */}
 			<Banner
 				imageUrl={reports[0]?.image_url}
-				title={reports[0]?.title || "Loading..."}
+				title={
+					isLoading === true ? "Loading..." : reports[0]?.title || "Sorry!"
+				}
 				summary={reports[0]?.summary}
 				url={reports[0]?.url}
 			/>
