@@ -90,6 +90,7 @@ export default function Blogs() {
 				previous={previous}
 				pagination={pagination}
 				filter={filter}
+				isLoading={isLoading}
 			/>
 			<Footer />
 		</div>

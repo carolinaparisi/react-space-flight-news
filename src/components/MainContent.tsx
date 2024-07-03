@@ -12,6 +12,7 @@ interface MainContentProps {
 	previous?: string | null;
 	pagination?: (nextOrPrevious: string) => void;
 	filter?: (input: string) => void;
+	isLoading: boolean;
 }
 
 export default function MainContent({
@@ -21,15 +22,21 @@ export default function MainContent({
 	previous,
 	pagination,
 	filter,
+	isLoading,
 }: MainContentProps) {
 	const location = useLocation();
 
 	const [searchInput, setSearchInput] = useState("");
 
 	return (
-		<main className="bg-black text-white flex pt-8 pl-8 pr-8 text-justify">
+		<main className="bg-black text-white flex pt-8 pl-8 pr-8 text-justify min-h-40">
 			{/* blogs.length verifies if there's is already some blog to show the input together with the rest of the elements */}
-			{mainData && count && pagination && filter && mainData.length > 0 ? (
+			{mainData &&
+			count &&
+			pagination &&
+			filter &&
+			mainData.length > 0 &&
+			!isLoading ? (
 				<div className=" w-full">
 					<div className="flex flex-col w-1/5 gap-2">
 						<input
@@ -77,7 +84,7 @@ export default function MainContent({
 					/>
 				</div>
 			) : (
-				<div className="w-3/5 mb-8">
+				<div className={isLoading || mainData ? "hidden" : "w-3/5 mb-8"}>
 					This website provides information on space launches and missions,
 					making it a must-have for spaceflight enthusiasts. Here, you will find
 					blogs, articles, and even reports on these events. The goal is to

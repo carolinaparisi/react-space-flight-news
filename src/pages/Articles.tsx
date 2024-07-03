@@ -93,6 +93,7 @@ export default function Articles() {
 				previous={previous}
 				pagination={pagination}
 				filter={filter}
+				isLoading={isLoading}
 			/>
 			<Footer />
 		</div>
