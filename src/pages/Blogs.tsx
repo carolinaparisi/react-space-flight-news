@@ -29,10 +29,12 @@ export default function Blogs() {
 	const [next, setNext] = useState<string>("");
 	const [previous, setPrevious] = useState<string>("");
 	const [isLoading, setLoading] = useState<boolean>(false);
+	const [isFiltered, setFiltered] = useState<boolean>(false);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			setLoading(true);
+			setFiltered(false);
 			const response = await fetch(apiUrl);
 			const jsonData: ApiResponse = await response.json();
 
@@ -58,7 +60,20 @@ export default function Blogs() {
 
 	const filter = async (input: string) => {
 		setLoading(true);
+		setFiltered(true);
 		const response = await fetch(`${apiUrl}?search=${input}`);
+		const jsonData: ApiResponse = await response.json();
+
+		setBlogs(jsonData.results);
+		setNext(jsonData.next);
+		setPrevious(jsonData.previous);
+		setCount(jsonData.count);
+		setLoading(false);
+	};
+
+	const orderByOldest = async () => {
+		setLoading(true);
+		const response = await fetch(`${apiUrl}?ordering=published_at`);
 		const jsonData: ApiResponse = await response.json();
 
 		setBlogs(jsonData.results);
@@ -91,6 +106,8 @@ export default function Blogs() {
 				pagination={pagination}
 				filter={filter}
 				isLoading={isLoading}
+				orderByOldest={orderByOldest}
+				isFiltered={isFiltered}
 			/>
 			<Footer />
 		</div>

@@ -13,6 +13,8 @@ interface MainContentProps {
 	pagination?: (nextOrPrevious: string) => void;
 	filter?: (input: string) => void;
 	isLoading: boolean;
+	orderByOldest: () => void;
+	isFiltered: boolean;
 }
 
 export default function MainContent({
@@ -23,6 +25,8 @@ export default function MainContent({
 	pagination,
 	filter,
 	isLoading,
+	orderByOldest,
+	isFiltered,
 }: MainContentProps) {
 	const location = useLocation();
 
@@ -38,24 +42,45 @@ export default function MainContent({
 			mainData.length > 0 &&
 			!isLoading ? (
 				<div className=" w-full">
-					<div className="flex flex-col w-1/5 gap-2">
-						<input
-							type="text"
-							className="rounded-md h-9 text-dark_gray p-2 font-light italic"
-							placeholder="Search..."
-							value={searchInput}
-							onChange={(event) => {
-								setSearchInput(event.target.value);
-							}}
-							onKeyDown={(event) => {
-								if (event.key === "Enter") {
-									filter(searchInput);
-									setSearchInput("");
-								}
-							}}
-						/>
-						<div className="mb-6 text-gray text-xs">
-							Found {count} {location.pathname.split("/")[1]}.
+					<div className="flex place-content-between mb-8">
+						<div className="flex flex-col w-1/5 gap-2 justify-center">
+							<input
+								type="text"
+								className="rounded-md h-9 text-dark_gray p-2 font-light italic"
+								placeholder="Search..."
+								value={searchInput}
+								onChange={(event) => {
+									setSearchInput(event.target.value);
+								}}
+								onKeyDown={(event) => {
+									if (event.key === "Enter") {
+										filter(searchInput);
+										setSearchInput("");
+									}
+								}}
+							/>
+							<div className=" text-gray text-xs">
+								Found {count} {location.pathname.split("/")[1]}.
+							</div>
+						</div>
+						<div className="flex flex-col justify-start">
+							{isFiltered ? (
+								<button
+									className="bg-blue p-2 rounded-md hidden"
+									onClick={() => {
+										orderByOldest();
+									}}>
+									Order by oldest
+								</button>
+							) : (
+								<button
+									className="bg-blue p-2 rounded-md"
+									onClick={() => {
+										orderByOldest();
+									}}>
+									Order by oldest
+								</button>
+							)}
 						</div>
 					</div>
 					{mainData.slice(1).map((data) => {
