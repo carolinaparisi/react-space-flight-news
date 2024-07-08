@@ -15,6 +15,7 @@ interface MainContentProps {
 	isLoading: boolean;
 	orderByOldest: () => void;
 	isFiltered: boolean;
+	isOrdered: boolean;
 }
 
 export default function MainContent({
@@ -27,6 +28,7 @@ export default function MainContent({
 	isLoading,
 	orderByOldest,
 	isFiltered,
+	isOrdered,
 }: MainContentProps) {
 	const location = useLocation();
 
@@ -43,26 +45,30 @@ export default function MainContent({
 			!isLoading ? (
 				<div className=" w-full">
 					<div className="flex place-content-between mb-8">
-						<div className="flex flex-col w-1/5 gap-2 justify-center">
-							<input
-								type="text"
-								className="rounded-md h-9 text-dark_gray p-2 font-light italic"
-								placeholder="Search..."
-								value={searchInput}
-								onChange={(event) => {
-									setSearchInput(event.target.value);
-								}}
-								onKeyDown={(event) => {
-									if (event.key === "Enter") {
-										filter(searchInput);
-										setSearchInput("");
-									}
-								}}
-							/>
-							<div className=" text-gray text-xs">
-								Found {count} {location.pathname.split("/")[1]}.
+						{!isOrdered ? (
+							<div className="flex flex-col w-1/5 gap-2 justify-center">
+								<input
+									type="text"
+									className="rounded-md h-9 text-dark_gray p-2 font-light italic"
+									placeholder="Search..."
+									value={searchInput}
+									onChange={(event) => {
+										setSearchInput(event.target.value);
+									}}
+									onKeyDown={(event) => {
+										if (event.key === "Enter") {
+											filter(searchInput);
+											setSearchInput("");
+										}
+									}}
+								/>
+								<div className=" text-gray text-xs">
+									Found {count} {location.pathname.split("/")[1]}.
+								</div>
 							</div>
-						</div>
+						) : (
+							<div className="m-8"></div>
+						)}
 						<div className="flex flex-col justify-start">
 							{isFiltered ? (
 								<button

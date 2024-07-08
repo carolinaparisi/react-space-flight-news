@@ -118,6 +118,7 @@ export default function Articles() {
 				isLoading={isLoading}
 				orderByOldest={orderByOldest}
 				isFiltered={isFiltered}
+				isOrdered={isOrdered}
 			/>
 			<Footer />
 		</div>

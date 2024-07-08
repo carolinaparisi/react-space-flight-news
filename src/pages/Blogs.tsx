@@ -115,6 +115,7 @@ export default function Blogs() {
 				isLoading={isLoading}
 				orderByOldest={orderByOldest}
 				isFiltered={isFiltered}
+				isOrdered={isOrdered}
 			/>
 			<Footer />
 		</div>

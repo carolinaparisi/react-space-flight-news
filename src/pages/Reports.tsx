@@ -118,6 +118,7 @@ export default function Reports() {
 				isLoading={isLoading}
 				orderByOldest={orderByOldest}
 				isFiltered={isFiltered}
+				isOrdered={isOrdered}
 			/>
 			<Footer />
 		</div>
