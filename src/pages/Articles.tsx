@@ -30,11 +30,13 @@ export default function Articles() {
 	const [previous, setPrevious] = useState<string>("");
 	const [isLoading, setLoading] = useState<boolean>(false);
 	const [isFiltered, setFiltered] = useState<boolean>(false);
+	const [isOrdered, setOrdered] = useState<boolean>(false);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			setLoading(true);
 			setFiltered(false);
+			setOrdered(false);
 			const response = await fetch(apiUrl);
 			const jsonData: ApiResponse = await response.json();
 
@@ -60,7 +62,7 @@ export default function Articles() {
 
 	const filter = async (input: string) => {
 		setLoading(true);
-		setFiltered(true);
+		setOrdered(false);
 		const response = await fetch(`${apiUrl}?search=${input}`);
 		const jsonData: ApiResponse = await response.json();
 
@@ -69,10 +71,12 @@ export default function Articles() {
 		setPrevious(jsonData.previous);
 		setCount(jsonData.count);
 		setLoading(false);
+		setFiltered(true);
 	};
 
 	const orderByOldest = async () => {
 		setLoading(true);
+		setFiltered(false);
 		const response = await fetch(`${apiUrl}?ordering=published_at`);
 		const jsonData: ApiResponse = await response.json();
 
@@ -81,6 +85,7 @@ export default function Articles() {
 		setPrevious(jsonData.previous);
 		setCount(jsonData.count);
 		setLoading(false);
+		setOrdered(true);
 	};
 
 	return (
@@ -100,6 +105,8 @@ export default function Articles() {
 				}
 				url={articles[0]?.url}
 				isLoading={isLoading}
+				isFiltered={isFiltered}
+				isOrdered={isOrdered}
 			/>
 			<MainContent
 				mainData={articles}

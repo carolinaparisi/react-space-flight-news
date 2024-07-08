@@ -8,6 +8,8 @@ interface BannerProps {
 	summary?: string;
 	url?: string;
 	isLoading: boolean;
+	isFiltered: boolean;
+	isOrdered: boolean;
 }
 
 export default function Banner({
@@ -16,6 +18,8 @@ export default function Banner({
 	summary,
 	url,
 	isLoading,
+	isFiltered,
+	isOrdered,
 }: BannerProps) {
 	return (
 		<div className="relative">
@@ -35,7 +39,7 @@ export default function Banner({
 						</>
 					)}
 				</h1>
-				{summary ? (
+				{summary && !isFiltered && !isOrdered ? (
 					<div className=" overflow-hidden whitespace-nowrap text-ellipsis">
 						{summary}
 					</div>
