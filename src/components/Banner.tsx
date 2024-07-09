@@ -7,9 +7,9 @@ interface BannerProps {
 	title?: string;
 	summary?: string;
 	url?: string;
-	isLoading: boolean;
-	isFiltered: boolean;
-	isOrdered: boolean;
+	isLoading?: boolean;
+	isFiltered?: boolean;
+	isOrdered?: boolean;
 }
 
 export default function Banner({
