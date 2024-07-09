@@ -43,6 +43,10 @@ export default function Banner({
 					<div className=" overflow-hidden whitespace-nowrap text-ellipsis">
 						{summary}
 					</div>
+				) : isFiltered ? (
+					<div className=" overflow-hidden whitespace-nowrap text-ellipsis">
+						{summary}
+					</div>
 				) : (
 					""
 				)}
