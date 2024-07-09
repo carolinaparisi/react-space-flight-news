@@ -70,21 +70,13 @@ export default function MainContent({
 							<div className="m-8"></div>
 						)}
 						<div className="flex flex-col justify-start">
-							{!isFiltered && !isOrdered ? (
+							{!isFiltered && (
 								<button
 									className="bg-blue p-2 rounded-md"
 									onClick={() => {
-										setOrdered && setOrdered(true);
+										setOrdered && setOrdered(!isOrdered);
 									}}>
-									Order by oldest
-								</button>
-							) : (
-								<button
-									className="bg-blue p-2 rounded-md"
-									onClick={() => {
-										setOrdered && setOrdered(false);
-									}}>
-									Back by newest
+									{isOrdered ? "Order by newest" : "Order by oldest"}
 								</button>
 							)}
 						</div>
