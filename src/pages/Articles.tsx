@@ -116,7 +116,6 @@ export default function Articles() {
 				pagination={pagination}
 				filter={filter}
 				isLoading={isLoading}
-				orderByOldest={orderByOldest}
 				isFiltered={isFiltered}
 				isOrdered={isOrdered}
 			/>

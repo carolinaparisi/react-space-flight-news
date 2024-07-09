@@ -36,8 +36,9 @@ export default function Blogs() {
 		const fetchData = async () => {
 			setLoading(true);
 			setFiltered(false);
-			setOrdered(false);
-			const response = await fetch(apiUrl);
+			const response = await fetch(
+				`${apiUrl}${isOrdered ? "?ordering=published_at" : ""}`
+			);
 			const jsonData: ApiResponse = await response.json();
 
 			setBlogs(jsonData.results);
@@ -47,7 +48,7 @@ export default function Blogs() {
 			setLoading(false);
 		};
 		fetchData();
-	}, []);
+	}, [isOrdered]);
 
 	const pagination = async (nextOrPrevious: string) => {
 		setLoading(true);
@@ -72,20 +73,6 @@ export default function Blogs() {
 		setCount(jsonData.count);
 		setLoading(false);
 		setFiltered(true);
-	};
-
-	const orderByOldest = async () => {
-		setLoading(true);
-		setFiltered(false);
-		const response = await fetch(`${apiUrl}?ordering=published_at`);
-		const jsonData: ApiResponse = await response.json();
-
-		setBlogs(jsonData.results);
-		setNext(jsonData.next);
-		setPrevious(jsonData.previous);
-		setCount(jsonData.count);
-		setLoading(false);
-		setOrdered(true);
 	};
 
 	return (
@@ -113,9 +100,9 @@ export default function Blogs() {
 				pagination={pagination}
 				filter={filter}
 				isLoading={isLoading}
-				orderByOldest={orderByOldest}
 				isFiltered={isFiltered}
 				isOrdered={isOrdered}
+				setOrdered={setOrdered}
 			/>
 			<Footer />
 		</div>

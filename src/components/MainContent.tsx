@@ -13,9 +13,9 @@ interface MainContentProps {
 	pagination?: (nextOrPrevious: string) => void;
 	filter?: (input: string) => void;
 	isLoading?: boolean;
-	orderByOldest?: () => void;
 	isFiltered?: boolean;
 	isOrdered?: boolean;
+	setOrdered?: (state: boolean) => void;
 }
 
 export default function MainContent({
@@ -26,9 +26,9 @@ export default function MainContent({
 	pagination,
 	filter,
 	isLoading,
-	orderByOldest,
 	isFiltered,
 	isOrdered,
+	setOrdered,
 }: MainContentProps) {
 	const location = useLocation();
 
@@ -70,13 +70,21 @@ export default function MainContent({
 							<div className="m-8"></div>
 						)}
 						<div className="flex flex-col justify-start">
-							{!isFiltered && (
+							{!isFiltered && !isOrdered ? (
 								<button
 									className="bg-blue p-2 rounded-md"
 									onClick={() => {
-										orderByOldest && orderByOldest();
+										setOrdered && setOrdered(true);
 									}}>
 									Order by oldest
+								</button>
+							) : (
+								<button
+									className="bg-blue p-2 rounded-md"
+									onClick={() => {
+										setOrdered && setOrdered(false);
+									}}>
+									Back by newest
 								</button>
 							)}
 						</div>
