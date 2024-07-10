@@ -74,20 +74,6 @@ export default function Articles() {
 		setFiltered(true);
 	};
 
-	const orderByOldest = async () => {
-		setLoading(true);
-		setFiltered(false);
-		const response = await fetch(`${apiUrl}?ordering=published_at`);
-		const jsonData: ApiResponse = await response.json();
-
-		setArticles(jsonData.results);
-		setNext(jsonData.next);
-		setPrevious(jsonData.previous);
-		setCount(jsonData.count);
-		setLoading(false);
-		setOrdered(true);
-	};
-
 	return (
 		<div className=" bg-black min-h-screen">
 			<Header />
