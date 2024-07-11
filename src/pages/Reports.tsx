@@ -36,8 +36,9 @@ export default function Reports() {
 		const fetchData = async () => {
 			setLoading(true);
 			setFiltered(false);
-			setOrdered(false);
-			const response = await fetch(apiUrl);
+			const response = await fetch(
+				`${apiUrl}${isOrdered ? "?ordering=published_at" : ""}`
+			);
 			const jsonData: ApiResponse = await response.json();
 
 			setReports(jsonData.results);
@@ -47,7 +48,7 @@ export default function Reports() {
 			setLoading(false);
 		};
 		fetchData();
-	}, []);
+	}, [isOrdered]);
 
 	const pagination = async (nextOrPrevious: string) => {
 		setLoading(true);
@@ -104,6 +105,7 @@ export default function Reports() {
 				isLoading={isLoading}
 				isFiltered={isFiltered}
 				isOrdered={isOrdered}
+				setOrdered={setOrdered}
 			/>
 			<Footer />
 		</div>
