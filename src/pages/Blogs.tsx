@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import MainContent from "../components/MainContent";
 
-const apiUrl = "https://api.spaceflightnewsapi.net/v4/blogs/";
+const apiUrl = `${import.meta.env.VITE_BASE_URL}/blogs/`;
 
 interface ApiResponse {
 	count: number;
