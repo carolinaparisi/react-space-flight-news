@@ -76,7 +76,7 @@ export default function Reports() {
 	};
 
 	return (
-		<div className=" bg-black min-h-screen">
+		<div className=" bg-black">
 			<Header />
 			{/*This ? used is a Safe Navigation operator, also called as Optional chaining  */}
 			<Banner
